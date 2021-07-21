@@ -11,9 +11,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" >
 </head>
 <body>
-    <div class="seriee">
-       <a href="{% url 'cadastro'  %}?serie=A"><img src="static/img/serieA.png" width="120" height="120"></a> 
-       <a href="{% url 'cadastro'  %}?serie=B"><img src="static/img/serieB.png" width="110" height="110"></a>
+    <div class="delete">
+        <h1>Tem certeza que deseja deletar {{ Cadastro.nome }}?</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
     </div>
     {% bootstrap_javascript jquery='full' %}
 </body>

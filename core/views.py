@@ -1,5 +1,4 @@
-from django import forms
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import  CadastroModelForm
 from .models import Cadastro
@@ -21,9 +20,26 @@ def cadastro(request):
                 form = CadastroModelForm()
             else:
                 messages.error(request, 'Erro ao cadastrar time.') 
-        
+        serie = request.GET['serie']
+        if serie == 'A':
+            times = Cadastro.objects.filter(serie='A')
+        elif serie == 'B':
+            times = Cadastro.objects.filter(serie='B')
+        else:
+            times = Cadastro.objects.all()
+
+
         context = {
             'form': form,
-            #'times': Cadastro.objects.all()
+            'times': times
         }
         return render(request, 'cadastro.html', context)
+
+def delete_times(request, id):
+    times = get_object_or_404(Cadastro, pk=id)
+
+    if request.method == 'POST':
+        times.delete()
+        return redirect('cadastro')
+
+    return render(request, 'times_confirme_delete.html', {'times': times})

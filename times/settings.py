@@ -80,13 +80,8 @@ WSGI_APPLICATION = 'times.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'equipes',
-        'USER': 'ehllio',
-        'PASSWORD': 'nqsk1w6ga',
-        'HOST': 'localhost',
-        'PORT': '3308',
-
     }
 }
 
