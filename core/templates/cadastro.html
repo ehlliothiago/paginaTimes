@@ -1,0 +1,58 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" >
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastre as equipes</h1>
+         {% bootstrap_messages %}
+
+        <form action="{% url 'cadastro' %}" method="post" class="form" autocomplete=" off">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            {% endbuttons %}
+        </form>
+    </div>
+    <div class="times">
+        <h2>Times</h2>
+
+        <table class="table table-success table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Sigla</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cidade</th>
+                    <th scope="col">Escudo</th>
+                    <th scope="col">Serie</th>
+                </tr>
+            </thead>
+            <tbody>,
+                {% for cadastro in times %}
+                    <tr>
+                        <td socpe="row">{{ cadastro.id }}</td>
+                        <td socpe="row">{{ cadastro.sigla }}</td>
+                        <td socpe="row">{{ cadastro.nome }}</td>
+                        <td socpe="row">{{ cadastro.cidade }}</td>
+                        <td socpe="row">{{ cadastro.escudo }}</td>
+                        <td socpe="row">{{ cadastro.serie }}</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% bootstrap_javascript jquery='full' %}
+</body>
+</html>
