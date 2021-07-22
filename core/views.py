@@ -13,6 +13,7 @@ def index(request):
     return render(request, 'index.html', context)
 def cadastro(request):
         form = CadastroModelForm(request.POST or None)
+
         if str(request.method) == 'POST':
             if form.is_valid():
                 form.save()
@@ -20,7 +21,10 @@ def cadastro(request):
                 form = CadastroModelForm()
             else:
                 messages.error(request, 'Erro ao cadastrar time.') 
-        serie = request.GET['serie']
+        try:       
+            serie = request.GET['serie']
+        except:
+            serie = ""
         if serie == 'A':
             times = Cadastro.objects.filter(serie='A')
         elif serie == 'B':
@@ -37,7 +41,6 @@ def cadastro(request):
 
 def delete_times(request, id):
     times = get_object_or_404(Cadastro, pk=id)
-
     if request.method == 'POST':
         times.delete()
         return redirect('cadastro')
